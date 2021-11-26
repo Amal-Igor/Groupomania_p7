@@ -1,4 +1,7 @@
 const mysql = require ('mysql');
+const bcrypt = require("bcrypt");
+
+
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -10,4 +13,6 @@ connection.connect(function(err) {
     if (err) throw err;
     console.log("Connecté à la base de données MySQL!");
   });
+
+
 
