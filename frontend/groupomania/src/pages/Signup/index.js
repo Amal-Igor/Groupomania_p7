@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import  Axios  from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 const SignUpWrapper = styled.div`
@@ -31,22 +31,29 @@ const StyledButton = styled.button`
  max-width: 60vw;
  flex-direction: column;
  `
+const SigninStatusUI = styled.div`
+font-size:15px;
+border: 1px solid;`
 
 
 function Signup() {
   //Styles Register
 
-
+//Récupération des infos user pour crée une entrée dans la BDD
 const [userLastNameReg, setLastNameReg] = useState('');
 const [userNameReg, setNameReg] = useState('');
 const [passwordReg, setPasswordReg] = useState('');
 const [emailReg, setEmailReg] = useState('');
 
+//UI pour attester de la création du user dans BDD
+const [signinStatus, setsigninStatus] = useState(false);
 
+useEffect( () => { 
+  if (signinStatus === true) {
+    console.log(signinStatus);}
+  
+}, [signinStatus]);
 //Register axios
-
-
-
 const register = () => {
 
   Axios.post('http://localhost:3001/auth/signup', {
@@ -55,12 +62,22 @@ const register = () => {
     password: passwordReg,
     email: emailReg,
   })
+
+  ///Si l'utilisateur est bien crée dans la base de donnée
   .then((response) => {
-    let res = response.data
-    console.log(res);
+    let userCreated = response.status
+    if (userCreated === 200) {
+      console.log(response)
+      console.log('yo')
+      setsigninStatus(true)
+      }
+    else{
+      console.log(response)
+      setsigninStatus(false)
+      console.log('NOOOOOOOOOOOOON')
+    }
+  });
 
-
-  })
   }
 
   return (
@@ -76,7 +93,8 @@ const register = () => {
 				    <input type="password"   placeholder="Mot de passe" required onChange={ (e) => {setPasswordReg(e.target.value)}}></input>
         <StyledButton onClick={register}> S'inscrire</StyledButton>
         </FormWrapper>
-    </SignUpWrapper>
+        <SigninStatusUI>{signinStatus===true ? <p>User is logged in</p> : <p>User is not logged in</p>}</SigninStatusUI>    
+        </SignUpWrapper>
   );
 }
 

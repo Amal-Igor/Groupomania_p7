@@ -28,27 +28,11 @@ function Header() {
 
     return(
         <HeaderWrapper>
-    
-       
-            <Link to="auth/signup" >
-              S'INSCRIRE
-            </Link>
-
-            <Link to="auth/signin" >
-              SE CONNECTER
-            </Link>
-
-            <Link to="auth/home">ACCEUIL
-            </Link>
-
-        <Link to="auth/profile"> PROFIL
-          </Link>
-
-        
-
-            <LogoStyled alt="logo" src={Logo}/>
-            
-
+            <LogoStyled alt="logo" src={Logo}/>       
+            <Link to="auth/signup" >S'INSCRIRE</Link>
+            <Link to="auth/signin" >SE CONNECTER</Link>
+            <Link to="auth/home">ACCEUIL</Link>
+            <Link to="auth/profile"> PROFIL</Link>
         </HeaderWrapper>
 
 

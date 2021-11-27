@@ -20,9 +20,11 @@ exports.signup = (req, res) => {
         "INSERT INTO users (nom, prenom, email, password) VALUES ( ?, ?, ?, ?)",
         [userLastName, username, email, password],
         (err, result) => { if (err) {
-            res.send(err)
+            
+            res.status(208).send(err);
         }
-            else{res.send([result]);}
+            else{
+                res.send(result);}
         }
     );
 
