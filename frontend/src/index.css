@@ -5,7 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: auto;
+  background: url("./assets/pexels-miguel-á-padriñán-1111368.png") no-repeat fixed center 100%;
+  background-size: cover;
+
 }
+
+
+/*
+body * {
+  backdrop-filter: saturate(180%)  blur(10px);
+}
+*/
+
 
 
 

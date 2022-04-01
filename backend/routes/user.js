@@ -4,7 +4,7 @@ const userCtrl = require('../controller/user')
 
 
 router.post('/signup', userCtrl.signup)
-router.post('/signin', userCtrl.signin)
+router.post('/login', userCtrl.signin)
 
 
 

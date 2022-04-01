@@ -1,0 +1,39 @@
+.styled-bouton{
+    align-items: center;
+    background-color: #ffffff00;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(255, 255, 255);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1.1rem;
+    font-weight: 600;
+    justify-content: center;
+    margin: 0;
+    max-height: 80%;
+    padding: calc(.875rem - 1px) calc(0.7rem - 1px);
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+    gap: .7rem;
+    transition: font-size 500ms ease-in-out;
+    }
+
+    .svg-inline--fa{
+        color: #f39;
+    }
+
+    @media screen and (max-width: 420px) {
+        .styled-bouton{
+        font-size: 0;
+        transition: font-size 300ms ease-in-out;
+        gap: 0px;
+        padding: .8rem .8rem;
+        }
+    }
