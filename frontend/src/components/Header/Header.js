@@ -14,6 +14,7 @@ justify-content: space-around;
 padding: 0.5rem 0.7rem;
 overflow: hidden;
 background: #0f032796;
+width: 100%;
 `
 
 const Logo = styled.img`

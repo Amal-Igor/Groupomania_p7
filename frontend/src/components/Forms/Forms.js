@@ -2,8 +2,12 @@ import styled from "styled-components"
 
 export const StyledInputs = ( {labelfor, label ,name, placeholder} ) => {
 
-    const StyledLabel = styled.label``
-    const StyledInput = styled.input``
+    const StyledLabel = styled.label`
+    font-size: 1.8rem;
+    color: white;
+    `
+    const StyledInput = styled.input`
+    `
     
     return (
         <>
