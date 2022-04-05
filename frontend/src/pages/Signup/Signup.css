@@ -1,0 +1,27 @@
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 7rem 10rem;
+    background-color: #0f032796;
+    gap: 1.3rem;    
+}
+
+@media screen and (max-width: 395px) {
+    #signup-form{
+        padding: inherit;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 1200px) and (max-height: 480px) {
+    #signup-form{
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: inherit;
+    }
+}

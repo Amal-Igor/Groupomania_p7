@@ -1,14 +1,42 @@
-const mysql = require ('mysql');
-
-//Connection à la base de donnée
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "groupomania",
-});
+const db = require('../config/db');
+const User = require('../models/User');
+const UserDto = require('../dto/UserDto');
+const bcrypt = require('bcrypt')
 
 
+
+
+exports.signup = async (req , res) => {
+    //Vérification que l'utilisateur n'est pas déj) présent dans la BDD
+    const user = await User.findOne({ where: { username: `${req.body.username}`}})
+    if (user === null) {
+    //Encryption du mot de pass
+    const encryptedPassword= await bcrypt.hash(`${req.body.password}`, 10, function(err, hash) {
+              if(err) {
+            console.log(err)
+        }
+        else{
+            //Récupération de l'objetUser grace au DTO
+            const userDto = new  UserDto (`${req.body.username}`, `${req.body.email}`, hash);
+            User.create(userDto)
+                .then( () => { res.status(200).send(" Votre compte a bien été crée !");})
+                .catch( (err) => res.status(404).send("Erreur à la création du compte"))
+        }})
+        }
+
+        else{
+            res.status(401).send("Nom d'utilisateur déjà utilisé !")
+        }
+    
+
+ 
+    
+    
+}
+
+
+
+/*
 exports.signup = (req, res) => {
     const userLastName = req.body.nom;
     const username = req.body.prenom;
@@ -54,3 +82,4 @@ exports.signin = (req, res) => {
         }
     )
 }
+*/

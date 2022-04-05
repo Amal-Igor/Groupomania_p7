@@ -1,18 +1,23 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-export const StyledInputs = ( {labelfor, label ,name, placeholder} ) => {
+const StyledLabel = styled.label`
+font-size: 1.6rem;
+color: white;
+`
+const StyledInput = styled.input`
+width: 25ch;
+padding-left: .4rem;
+padding-top: .4rem;
+padding-bottom: .4rem;
+`
 
-    const StyledLabel = styled.label`
-    font-size: 1.8rem;
-    color: white;
-    `
-    const StyledInput = styled.input`
-    `
-    
+export const StyledInputs = ( { action ,labelClassname, labelfor, label ,name, placeholder} ) => {
+
+
     return (
         <>
-        <StyledLabel for={labelfor}>{label}</StyledLabel>
-        <StyledInput type="text" id="name" name={name} placeholder={placeholder}></StyledInput>
+        <StyledLabel className={labelClassname} htmlFor={labelfor}>{label}</StyledLabel>
+        <StyledInput onChange={action} type="text"  name={name} placeholder={placeholder}></StyledInput>
         </>
     )
 }

@@ -1,4 +1,5 @@
 import logo from '../../assets/icon-left-font-monochrome-black-modif8.png';
+import './Footer.css'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -22,7 +23,7 @@ font-size: 1.6rem;
 const Header = () => {
 
     return(
-        <FooterWrapper>
+        <FooterWrapper id="footer-wrapper">
                 <FontAwesomeIcon className='footer-icon'   icon={faFacebook} />
                 <FontAwesomeIcon className ='footer-icon' icon={faInstagram} />
                 <FontAwesomeIcon className ='footer-icon' icon={faTwitter} />

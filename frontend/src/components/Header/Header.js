@@ -34,14 +34,15 @@ display: flex;
 align-items: center;
 `
 
+
 const Header = () => {
 
     return(
-        <HeaderWrapper>
+        <HeaderWrapper id='header-wrapper'>
             <Logo src={logo} alt='logo'/>
             <ButtonWrapper>
-                <NavLink to='/signup'> <StyledButton className='signin-button header-button'   icon={faUserPlus} text={'S\'inscrire'} /></NavLink>
-                <NavLink to='/login' ><StyledButton className ='connection-button header-button' icon={faUser} text={'Connexion'}/></NavLink>
+                <NavLink to='/signup'> <StyledButton  typeOf= {'header'}   icon={faUserPlus} text={'S\'inscrire'} /></NavLink>
+                <NavLink to='/login' ><StyledButton  typeOf= {'header'} icon={faUser} text={'Connexion'}/></NavLink>
             </ButtonWrapper>
         </HeaderWrapper>
     ) 
