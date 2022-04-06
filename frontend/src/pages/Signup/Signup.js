@@ -1,8 +1,7 @@
 import { StyledInputs, StyledForm } from "../../components/Forms/Forms";
 import { ButtonWoIcon } from "../../components/Button/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SignupService } from "../../components/Services/ServiceLayer.js"
-import styled from "styled-components";
 
 
 

@@ -1,10 +1,8 @@
 const db = require('../config/db');
 const User = require('../models/User');
 const UserDto = require('../dto/UserDto');
-const bcrypt = require('bcrypt')
-
-
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.signup = async (req , res) => {
     //Vérification que l'utilisateur n'est pas déj) présent dans la BDD
@@ -27,59 +25,28 @@ exports.signup = async (req , res) => {
         else{
             res.status(401).send("Nom d'utilisateur déjà utilisé !")
         }
-    
-
- 
-    
-    
 }
 
-
-
-/*
-exports.signup = (req, res) => {
-    const userLastName = req.body.nom;
-    const username = req.body.prenom;
-    const password = req.body.password;
-    const email = req.body.email;
-    
-    
-    db.query(
-        "INSERT INTO users (nom, prenom, email, password) VALUES ( ?, ?, ?, ?)",
-        [userLastName, username, email, password],
-        (err, result) => { if (err) {
+exports.login = async (req , res) => {
+        //Vérification de l'attribut unique permettant d'identifier l'utilsiateur : username
+        const user = await User.findOne({ where: { username: `${req.body.username}`}})
+        if(user === null){
+            res.status(401).send("Nous ne trouvons pas de compte associé à ce nom d'utilisateur")
+        }
+        else{
+        //Décryptage du mdp présent dans la base de donnée pour le vérifier
+        const decodedPassword = await bcrypt.compare(req.body.password, user.password);
+        console.log(decodedPassword);
             
-            res.status(208).send(err);
-        }
+            if(!decodedPassword){
+                return res.status(400).send('Mot de passe/Username incorrect !')
+            }
             else{
-                res.send(result);}
+                return res.send({
+                    userId: user.id,
+                    token: jwt.sign(
+                        {userId: user.id, isAdmin: user.isAdmin}, `${process.env.JWT_SECRET}`, {expiresIn: '24h'})
+                }).status(200)
+            }
         }
-    );
-
 }
-
-
-
-exports.signin = (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    db.query(
-        "SELECT * FROM users WHERE email = ? AND password = ?",
-        [email, password],
-        (err, result) => {
-            if(err){
-                //Permet d'envoyer une réponse au front en cas d'erreur
-                res.send({err: error});
-            } else {
-                if (result.length > 0) {
-
-                    res.send(result);
-                } else{
-                    res.send({message : "Nous ne trouvons le compte associé à ce nom d'utilisateur"});
-                }
-            }     
-        }
-    )
-}
-*/

@@ -3,7 +3,6 @@ import Footer from './components/Footer/Footer'
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import SignupForm from './pages/Signup/Signup';
-import Background from './components/Background/Background';
 
 function App() {
   return (

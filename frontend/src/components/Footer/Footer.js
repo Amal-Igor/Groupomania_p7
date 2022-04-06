@@ -1,7 +1,5 @@
-import logo from '../../assets/icon-left-font-monochrome-black-modif8.png';
 import './Footer.css'
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons'
 

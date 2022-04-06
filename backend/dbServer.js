@@ -1,4 +1,4 @@
-const mysql = require ('mysql');
+/*const mysql = require ('mysql');
 
 
 export const  createConnection =() =>{
@@ -13,6 +13,7 @@ connection.connect(function(err) {
     console.log("Connecté à la base de données MySQL!");
   });
 }
+*/
 
 
 
