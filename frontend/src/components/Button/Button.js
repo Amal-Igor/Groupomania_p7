@@ -59,6 +59,6 @@ export const ButtonWoIcon = (props) => {
 
     return(
 
-        <ButtonSimple onClick={props.action} className={`styled-bouton ${props.typeOf}-button`} style={props.customStyle} variant="contained">{props.text}</ButtonSimple>
+        <ButtonSimple onClick={props.event} className={`styled-bouton ${props.typeOf}-button`} style={props.customStyle} variant="contained">{props.text}</ButtonSimple>
     )
 }
