@@ -1,9 +1,9 @@
 const { Sequelize } = require ('sequelize');
-const db = require('../config/db')  
+const db = require('../config/db');
+const Post = require('./Post')
 
 
 //TODO = Implémenter regex?
-
 const User = db.define('user', {
     username:{
         type: Sequelize.STRING,
@@ -22,5 +22,9 @@ const User = db.define('user', {
 }, {
     timestamps: false
 })
+
+User.hasMany(Post, {
+    foreignKey: 'id'
+  });
 
 module.exports = User;

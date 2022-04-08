@@ -1,28 +1,47 @@
-const bcrypt = require("bcrypt");
-const { appendFile } = require("fs");
-const mysql = require('mysql');
-const express = require('express');
+const jwt = require('jsonwebtoken')
+const db = require('../config/db');
+const User = require('../models/User');
 
 
+exports.userAuth = async (req, res, next) => {
+    try {
+      console.log(req.body.userId)
+      const token = req.headers.authorization.split(' ')[2];
+      console.log(token)
+      const decodedToken = jwt.verify(token, `${process.env.JWT_SECRET}`);
+      console.log(decodedToken)
+      const userId = decodedToken.userId;
+      const user = await User.findOne({ where: { id: `${userId}`}})
+
+      if (user.id !== userId) {
+        throw 'Invalid user ID';
+      } else {
+        next();
+      }
+    } catch {
+      res.status(401).json({
+        error: new Error('Invalid request!')
+      });
+    }
+  };
 
 
-//Authentification à la base de donnée
-//CrÃ©ation du middleware d'inscription sur le site
-//CrÃ©ation du middleware d'inscription sur le site
-exports.signup = (req, res, next) => {
-    //On commence par hasher le mdp
-    bcrypt.hash(req.body.password, 10)
-     .then(hash => {
-         //On crÃ©e un nouvel Utilisateur en utilisant le modÃ¨le dÃ©finit par mongoose
-         const user = new User ({
-             email: req.body.email,
-             password: hash});
-         //On enregistre l'utilisateur prÃ©cÃ¨demment crÃ©e afin de l'enregistrer dans la DB avec la fonction .save
-         user.save()
-         .then(() => res.status(201).json({message: 'Utilisateur crÃ©e!'}))
-         .catch(error => res.status(400).json({error}));
- 
-     })
-     .catch(error => res.status(500).json({message: 'Utilisateur non crÃ©e!'}));
- };
- 
+exports.adminAuth = async (req, res, next) => {
+    const user = await User.findOne({ where: { username: `${req.body.username}`}})
+
+    try {
+      const token = req.headers.authorization.split(' ')[2];
+      const decodedToken = jwt.verify(token, `${process.env.JWT_SECRET}`);
+      const isAdmin = decodedToken.isAdmin;
+      console.log(decodedToken.isAdmin)
+      if (!isAdmin) {
+          return res.status(401).json({error: "User role non valable !"})
+      } else{
+          console.log(decodedToken)
+          next();
+      }
+  } catch (error) {
+      res.status(401).json({ error: error | 'Requête non authentifiée !' });
+  }
+  };
+  

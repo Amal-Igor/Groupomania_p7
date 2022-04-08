@@ -4,10 +4,11 @@ const app = express();
 const path = require('path');
 const bodyParser = require('express');
 const PORT = process.env.SERVER_PORT;
-const db = require('./config/db')  
-const userRoutes = require('./routes/users')
+const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/post');
+const cors = require('cors')
 
-
+app.use(cors())
 app.use(express.json());
 
 
@@ -23,11 +24,12 @@ next();
 });
 
 //Implementation des routes users
-app.use('/users', userRoutes)
+app.use('/', authRoutes);
 
-app.get('/', (req,res) => {
-  res.send('Ok pute')
-})
+app.use('/post', postRoutes);
+
+//app.use('/users', userRoutes)
+
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
 

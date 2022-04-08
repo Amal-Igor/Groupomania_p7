@@ -8,6 +8,6 @@ const db = new Sequelize(`${process.env.DB_NAME}`, `${process.env.DB_USER}`, `${
 
 db.authenticate()
 .then( () => console.log(`Connected to Database ${process.env.DB_NAME} on port ${process.env.DB_PORT}`))
-.catch( (err) => console.log('Error trying to connect to db' + err))
+.catch( (err) => console.log('Error trying to connect to db ' + err))
 
 module.exports = db

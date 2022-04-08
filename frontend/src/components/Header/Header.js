@@ -1,9 +1,11 @@
 import logo from '../../assets/icon-left-font-monochrome-black-modif8.png';
 import styled from 'styled-components';
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { isUserConnected, logout } from '../Utils/Utils';
 import { StyledButton } from '../Button/Button';
-import { faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faUserPlus, faPowerOff } from '@fortawesome/free-solid-svg-icons';
 
 const HeaderWrapper = styled.header`
 display: flex;
@@ -25,26 +27,46 @@ margin: auto 0;
 
 const ButtonWrapper = styled.div`
 display: flex;
-gap: 2rem;
-`
-
-const NavLink = styled(Link)`
-text-decoration: none;
-display: flex;
-align-items: center;
+gap: 1.1rem;
 `
 
 
 const Header = () => {
+    let navigate = useNavigate();
+    const [buttonText, setButtonText]=useState('');
 
+    const getUsername = () => {
+        if(localStorage.getItem('username') !== null){
+            setButtonText(localStorage.getItem('username'))
+        }else{
+            setButtonText('Connexion')
+        }
+    }
+
+    useEffect( () => {
+        getUsername();
+    })
+
+    const handleProfile = (e) => {
+        e.preventDefault();
+        if (localStorage.length <= 0){
+            navigate("/login")
+        }else{navigate("/profile")}
+    }
+
+    const handleSignup = (e) => {
+        e.preventDefault();
+            navigate("/signup")}
+    
     return(
         <HeaderWrapper id='header-wrapper'>
             <Logo src={logo} alt='logo'/>
             <ButtonWrapper>
-                <NavLink to='/signup'> <StyledButton  typeOf= {'header'}   icon={faUserPlus} text={'S\'inscrire'} /></NavLink>
-                <NavLink to='/login' ><StyledButton  typeOf= {'header'} icon={faUser} text={'Connexion'}/></NavLink>
-            </ButtonWrapper>
-        </HeaderWrapper>
+                <StyledButton  action={handleSignup} typeOf= {'header'} icon={faUserPlus} text={'S\'inscrire'} />
+                <StyledButton  action={handleProfile} typeOf= {'header'} icon={faUser} text={buttonText}/>
+                {isUserConnected()? <StyledButton icon={faPowerOff} action={logout} /> : <></>}
+            </ ButtonWrapper>
+        </ HeaderWrapper>
     ) 
 }
 
