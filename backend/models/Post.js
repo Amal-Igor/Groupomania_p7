@@ -1,6 +1,5 @@
 const { Sequelize } = require ('sequelize');
 const db = require('../config/db');
-const User = require('./User')
 
 const Post = db.define('post', {
     text:{
@@ -10,6 +9,9 @@ const Post = db.define('post', {
         type: Sequelize.STRING
     }
 })
+
+
+Post.sync()
 
 
 module.exports = Post;

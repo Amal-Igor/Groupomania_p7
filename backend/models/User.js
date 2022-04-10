@@ -23,8 +23,8 @@ const User = db.define('user', {
     timestamps: false
 })
 
-User.hasMany(Post, {
-    foreignKey: 'id'
-  });
+User.hasMany(Post,{as: 'posts', foreignKey: 'text'});
+
+User.sync()
 
 module.exports = User;
