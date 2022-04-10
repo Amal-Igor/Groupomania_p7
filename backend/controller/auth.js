@@ -63,5 +63,5 @@ exports.getInfos = async (req , res) =>{
 }
 
 exports.test = (req, res) => {
-    res.send("t'es un bogoss amal")
+    res.send("t'es un bogoss amala")
 }
